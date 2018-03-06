@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { NgRedux, NgReduxModule } from 'ng2-redux';
+import { NgRedux, NgReduxModule, DevToolsExtension } from 'ng2-redux';
 
 
 import { AppComponent } from './app.component';
@@ -29,8 +29,9 @@ import { ITodoState, todoRoducer, INITIAL_STATE } from './store';
 })
 export class AppModule {
 
-  constructor(ngRedux: NgRedux<ITodoState>) {
-    ngRedux.configureStore(todoRoducer, INITIAL_STATE);
+  constructor(ngRedux: NgRedux<ITodoState>, devTools: DevToolsExtension) {
+    var enhancers = isDevMode()? [devTools.enhancer()]: [];
+    ngRedux.configureStore(todoRoducer, INITIAL_STATE, [], enhancers);
   }
 
 }
