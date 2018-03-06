@@ -8,7 +8,7 @@ import { NgRedux, NgReduxModule } from 'ng2-redux';
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoDashboardComponent } from './todo-dashboard/todo-dashboard.component';
-import { TodoService } from './todo.service';
+// import { TodoService } from './todo.service';
 import { ITodoState, todoRoducer, INITIAL_STATE } from './store';
 
 @NgModule({
@@ -23,7 +23,8 @@ import { ITodoState, todoRoducer, INITIAL_STATE } from './store';
     HttpModule,
     NgReduxModule
   ],
-  providers: [TodoService],
+  // providers: [TodoService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

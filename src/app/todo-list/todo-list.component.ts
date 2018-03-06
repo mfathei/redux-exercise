@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NgRedux } from 'ng2-redux';
+import { NgRedux, select } from 'ng2-redux';
 
-import { TodoService } from '../todo.service';
 import { ITodoState } from '../store';
 import * as t from '../actions';
 
@@ -11,29 +10,25 @@ import * as t from '../actions';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent {
+  @select((s: ITodoState) => s.todos) todos;
+
   // Read the comment in TodoService
-  constructor(private service: TodoService, private ngRedux: NgRedux<ITodoState>) {
-    this.ngRedux.subscribe(() => {
-      console.log(this.ngRedux.getState());
-    })
+  constructor(private ngRedux: NgRedux<ITodoState>) {
   }
 
   addTodo(input) {
     if (!input.value) return;
 
     this.ngRedux.dispatch({ type: t.TODO_ADD, title: input.value });
-    this.service.addTodo(input.value);
 
     input.value = '';
   }
 
   toggleTodo(todo) {
-    this.ngRedux.dispatch({type: t.TODO_TOGGLE, id: todo.id});
-    this.service.toggleTodo(todo);
+    this.ngRedux.dispatch({ type: t.TODO_TOGGLE, id: todo.id });
   }
 
   removeTodo(todo) {
-    this.ngRedux.dispatch({type: t.TODO_REMOVE, id: todo.id});
-    this.service.removeTodo(todo);
+    this.ngRedux.dispatch({ type: t.TODO_REMOVE, id: todo.id });
   }
 }
