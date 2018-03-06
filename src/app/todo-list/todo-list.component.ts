@@ -32,6 +32,7 @@ export class TodoListComponent {
   }
 
   removeTodo(todo) {
+    this.ngRedux.dispatch({type: t.TODO_REMOVE, id: todo.id});
     this.service.removeTodo(todo);
   }
 }

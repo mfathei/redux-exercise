@@ -30,6 +30,9 @@ export function todoRoducer(state: ITodoState, action): ITodoState {
             var newTodoTask = tassign(INITIAL_TODO_TASK, { id: state.todos.length + 1, title: action.title });
             var newTodos = state.todos.concat(newTodoTask);
             return tassign(state, { todos: newTodos, lastUpdate: new Date() });
+        case t.TODO_REMOVE:
+            var newTodos = state.todos.filter(item => item.id !== action.id);
+            return tassign(state, { todos: newTodos, lastUpdate: new Date() });
     }
     return state;
 }
