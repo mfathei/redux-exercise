@@ -12,13 +12,16 @@ import * as t from '../actions';
 })
 export class TodoListComponent {
   // Read the comment in TodoService
-  constructor(private service: TodoService, private ngRedux: NgRedux<ITodoState>) { 
-
+  constructor(private service: TodoService, private ngRedux: NgRedux<ITodoState>) {
+    this.ngRedux.subscribe(() => {
+      console.log(this.ngRedux.getState());
+    })
   }
 
   addTodo(input) {
-    if (!input.value) return; 
+    if (!input.value) return;
 
+    this.ngRedux.dispatch({ type: t.TODO_ADD, title: input.value });
     this.service.addTodo(input.value);
 
     input.value = '';
