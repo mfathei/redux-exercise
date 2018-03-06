@@ -28,6 +28,7 @@ export class TodoListComponent {
   }
 
   toggleTodo(todo) {
+    this.ngRedux.dispatch({type: t.TODO_TOGGLE, id: todo.id});
     this.service.toggleTodo(todo);
   }
 

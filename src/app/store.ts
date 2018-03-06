@@ -33,6 +33,17 @@ export function todoRoducer(state: ITodoState, action): ITodoState {
         case t.TODO_REMOVE:
             var newTodos = state.todos.filter(item => item.id !== action.id);
             return tassign(state, { todos: newTodos, lastUpdate: new Date() });
+        case t.TODO_TOGGLE:
+            var item = state.todos.find(v => v.id === action.id);
+            var index = state.todos.indexOf(item);
+            var todosBefore = state.todos.slice(0, index);
+            var todosAfter = state.todos.slice(index + 1);
+            var newTodo = tassign(item, { isCompleted: !item.isCompleted });
+            var emptyArray: ITodoTask[] = [];
+            var newTodos = emptyArray.concat(todosBefore).concat(newTodo).concat(todosAfter);
+            return tassign(state, { todos: newTodos, lastUpdate: new Date() });
+        case t.TODO_CLEAR_ALL:
+            return tassign(state, { todos: [], lastUpdate: new Date() });
     }
     return state;
 }

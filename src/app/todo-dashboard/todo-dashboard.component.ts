@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
+
 import { TodoService } from '../todo.service';
 import { ITodoState } from '../store';
+import * as t from '../actions';
 
 @Component({
   selector: 'app-todo-dashboard',
@@ -39,6 +41,7 @@ export class TodoDashboardComponent {
   }
 
   clearTodos() {
+    this.ngRedux.dispatch({type: t.TODO_CLEAR_ALL});
     this.service.clearTodos();
   }
 }
